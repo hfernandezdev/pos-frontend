@@ -1,5 +1,5 @@
-import './styles/global.scss';
-import './styles/theme.scss';
+import './styles/global.css';
+import './styles/theme.css';
 import { Toaster } from 'react-hot-toast';
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
