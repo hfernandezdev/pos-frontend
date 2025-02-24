@@ -1,33 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
+import toast from 'react-hot-toast';
+import client from './api/client';
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [data, setData] = useState(null);
+
+  const showAlert = () => {
+    Swal.fire({
+      title: '¡Hola!',
+      text: 'Este es un mensaje de SweetAlert2',
+      icon: 'success',
+    });
+  };
+
+  const showToast = () => {
+    toast.success('¡Notificación de Toast!');
+    // toast.error('¡Notificación de Toast!');
+  };
+
+  useEffect(() => {
+    client.get('/')
+      .then((response) => setData(response.data))
+      .catch((error) => console.error(error));
+  }, []);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+      <div className="container">
+        <h1>POS Frontend</h1>
+        <pre>{JSON.stringify(data, null, 2)}</pre>
+        <button className="primary" onClick={showAlert}>
+          Mostrar Alerta
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+        {" "}
+        <button className="secondary" onClick={showToast}>
+          Mostrar Toast
+        </button>
+    </div>
     </>
   )
 }
