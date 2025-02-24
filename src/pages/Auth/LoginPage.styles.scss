@@ -1,0 +1,33 @@
+@use "sass:map";
+@use "@picocss/pico/scss/pico" as * with (
+  $theme-color: "indigo",
+  $semantic-root-element: "#login-page",
+  $enable-semantic-container: true,
+  $enable-classes: false
+);
+
+#login-page {
+  > main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    max-width: map.get(map.get($breakpoints, "sm"), "viewport");
+    margin: 0 auto;
+    padding: 1rem;
+
+    .brand-logo-container {
+      text-align: center;
+
+      img {
+        width: 200px;
+        height: auto;
+      }
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
